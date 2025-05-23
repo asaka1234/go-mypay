@@ -1,0 +1,55 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+.DS_Store
+logs
+cmd/cmd
+resources/intl
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.project
+*.classpath
+*.metadata
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+.idea
+*/*.iml
+*/*.project
+bin/
+*/*.classpath
+bootstrap-local.yml
+### misc ###
+coverage.out
+vendor
+resources/data
+place-order
+place-order.exe
+resources/kpg/
+resources/th/
+resources/demo
