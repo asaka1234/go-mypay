@@ -8,13 +8,13 @@ import (
 	"log"
 )
 
-func (cli *Client) WithdrawCallback(req WithdrawBackReq, processor func(WithdrawBackReq) error) error {
+func (cli *Client) WithdrawCallback(req MyPayWithdrawBackReq, processor func(MyPayWithdrawBackReq) error) error {
 	//验证签名
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
 
 	// Verify signature
-	flag, err := utils.Verify(params, cli.BackKey)
+	flag, err := utils.Verify(params, cli.Params.BackKey)
 	if err != nil {
 		log.Printf("Signature verification error: %v", err)
 		return err

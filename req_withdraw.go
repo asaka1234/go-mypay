@@ -7,22 +7,22 @@ import (
 	"time"
 )
 
-func (cli *Client) Withdraw(req WithdrawReq) (*WithdrawRsp, error) {
+func (cli *Client) Withdraw(req MyPayWithdrawReq) (*MyPayWithdrawRsp, error) {
 
-	rawURL := cli.WithdrawUrl
+	rawURL := cli.Params.WithdrawUrl
 
 	// 2. Convert struct to map for signing
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
-	params["appId"] = cli.MerchantID //uid要参与签名
-	params["apiOrderType"] = 2       //商户订单类型。【2：提现(兑出)】
+	params["appId"] = cli.Params.MerchantId
+	params["apiOrderType"] = 2 //商户订单类型。【2：提现(兑出)】
 	params["timeStamp"] = time.Now().Unix()
 
 	// 3. Generate signature
-	signStr, _ := utils.Sign(params, cli.AccessKey)
+	signStr, _ := utils.Sign(params, cli.Params.AccessKey)
 	params["_sign"] = signStr
 
-	var result WithdrawRsp
+	var result MyPayWithdrawRsp
 
 	_, err := cli.ryClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).

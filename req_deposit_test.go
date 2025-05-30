@@ -8,7 +8,7 @@ import (
 func TestCryDeposit(t *testing.T) {
 
 	//构造client
-	cli := NewClient(nil, MERCHANT_ID, ACCESS_KEY, BACK_KEY, DEPOSIT_URL, DEPOSIT_CHECK_URL, WITHDRAW_URL, WITHDRAW_CHECK_URL, DEAL_URL)
+	cli := NewClient(nil, MyPayInitParams{MERCHANT_ID, ACCESS_KEY, BACK_KEY, DEPOSIT_URL, DEPOSIT_CHECK_URL, WITHDRAW_URL, WITHDRAW_CHECK_URL, DEAL_URL})
 
 	//发请求
 	resp, err := cli.Deposit(GenDepositRequestDemo())
@@ -19,8 +19,8 @@ func TestCryDeposit(t *testing.T) {
 	fmt.Printf("resp:%+v\n", resp)
 }
 
-func GenDepositRequestDemo() DepositReq {
-	return DepositReq{
+func GenDepositRequestDemo() MyPayDepositReq {
+	return MyPayDepositReq{
 		APIUserID:     "111",
 		APIAmountType: "1",
 		Amount:        "20",

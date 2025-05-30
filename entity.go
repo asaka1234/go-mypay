@@ -1,6 +1,20 @@
 package go_mypay
 
-type DepositReq struct {
+type MyPayInitParams struct {
+	MerchantId int    `json:"merchantId" mapstructure:"merchantId" config:"merchantId"` // merchantId
+	AccessKey  string `json:"accessKey" mapstructure:"accessKey" config:"accessKey"`    // accessKey
+	BackKey    string `json:"backKey" mapstructure:"backKey" config:"backKey"`          //backKey
+
+	DepositUrl       string `json:"depositUrl" mapstructure:"depositUrl" config:"depositUrl"`
+	DepositCheckUrl  string `json:"depositCheckUrl" mapstructure:"depositCheckUrl" config:"depositCheckUrl"`
+	WithdrawUrl      string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl"`
+	WithdrawCheckUrl string `json:"withdrawCheckUrl" mapstructure:"withdrawCheckUrl" config:"withdrawCheckUrl"`
+	DealOrderUrl     string `json:"dealOrderUrl" mapstructure:"dealOrderUrl" config:"dealOrderUrl"`
+}
+
+//----------------------------------
+
+type MyPayDepositReq struct {
 	APIUserID     string `json:"apiUserId" mapstructure:"apiUserId"`         //商户下不同用户唯一识别 Id
 	APIAmountType string `json:"apiAmountType" mapstructure:"apiAmountType"` //币种, 【1：RMB(默认)；2：USDT】
 	Amount        string `json:"amount" mapstructure:"amount"`               //充值金额，为 RMB 时必须为整数
@@ -16,14 +30,14 @@ type DepositReq struct {
 	//APIOrderType  string `json:"apiOrderType" mapstructure:"apiOrderType"`   //商户订单类型。【1：充值】
 }
 
-type DepositRsp struct {
-	Code   int            `json:"code"`
-	Msg    string         `json:"msg"`
-	Exist  int            `json:"exist"`
-	Result *DepositResult `json:"result"`
+type MyPayDepositRsp struct {
+	Code   int                 `json:"code"`
+	Msg    string              `json:"msg"`
+	Exist  int                 `json:"exist"`
+	Result *MyPayDepositResult `json:"result"`
 }
 
-type DepositResult struct {
+type MyPayDepositResult struct {
 	TradeID       string `json:"tradeId"`
 	URL           string `json:"url"`
 	SwiftCode     string `json:"swiftcode"`
@@ -32,7 +46,7 @@ type DepositResult struct {
 
 //------------------------------------
 
-type DepositBackReq struct {
+type MyPayDepositBackReq struct {
 	AppID       string `json:"appId" mapstructure:"appId"`             //商户的 appId
 	APIUserID   string `json:"apiUserId" mapstructure:"apiUserId"`     //商户用户 Id
 	TradeID     string `json:"tradeId" mapstructure:"tradeId"`         //平台订单唯一识别号 id
@@ -52,7 +66,7 @@ type DepositBackReq struct {
 
 //================================================
 
-type WithdrawReq struct {
+type MyPayWithdrawReq struct {
 	APIUserID     string `json:"apiUserId" mapstructure:"apiUserId"`         //商户下不同用户唯一识别 Id
 	APIAmountType string `json:"apiAmountType" mapstructure:"apiAmountType"` //币种, 【1：RMB(默认)；2：USDT】
 	Amount        string `json:"amount" mapstructure:"amount"`               //充值金额，为 RMB 时必须为整数
@@ -74,13 +88,13 @@ type WithdrawReq struct {
 	//TimeStamp int64 `json:"timeStamp" mapstructure:"timeStamp"` //时间戳，精确到秒
 }
 
-type WithdrawRsp struct {
-	Code   int             `json:"code"`
-	Msg    string          `json:"msg"`
-	Result *WithdrawResult `json:"result"`
+type MyPayWithdrawRsp struct {
+	Code   int                  `json:"code"`
+	Msg    string               `json:"msg"`
+	Result *MyPayWithdrawResult `json:"result"`
 }
 
-type WithdrawResult struct {
+type MyPayWithdrawResult struct {
 	TradeID     string `json:"tradeId"`
 	Status      int    `json:"status"`
 	TradeStatus int    `json:"tradeStatus"`
@@ -88,7 +102,7 @@ type WithdrawResult struct {
 
 // --------------------------------------------------
 
-type WithdrawBackReq struct {
+type MyPayWithdrawBackReq struct {
 	AppID       string `json:"appId" mapstructure:"appId"`             //商户的 appId
 	APIUserID   string `json:"apiUserId" mapstructure:"apiUserId"`     //商户用户 Id
 	TradeID     string `json:"tradeId" mapstructure:"tradeId"`         //平台订单唯一识别号 id
@@ -108,7 +122,7 @@ type WithdrawBackReq struct {
 //============================
 
 // 验证接口(回调成功后必须调用此接口进行验证)->deposit/withdraw的验证都是同一个req和resp
-type CommonCheckReq struct {
+type MyPayCommonCheckReq struct {
 	OutTradeNo string `json:"out_trade_no" mapstructure:"out_trade_no"` //商户订单唯一识别 Id
 	Amount     string `json:"amount" mapstructure:"amount"`             //交易金额
 	//sdk自己设置和计算
@@ -116,7 +130,7 @@ type CommonCheckReq struct {
 	//Signature string `json:"_sign" mapstructure:"_sign"`
 }
 
-type CommonCheckRsp struct {
+type MyPayCommonCheckRsp struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 }
@@ -124,7 +138,7 @@ type CommonCheckRsp struct {
 //============================
 
 // 验证接口(回调成功后必须调用此接口进行验证)
-type DealOrderReq struct {
+type MyPayDealOrderReq struct {
 	TradeID   string `json:"tradeId" mapstructure:"tradeId"`     //支付平台订单唯一识别号 id
 	DealType  string `json:"dealType" mapstructure:"dealType"`   //处理类型: 3：放行（兑出）；4：强制放行（兑出）
 	PayerName string `json:"payerName" mapstructure:"payerName"` //付款人名称
@@ -133,7 +147,7 @@ type DealOrderReq struct {
 	//Signature string `json:"_sign" mapstructure:"_sign"`
 }
 
-type DealOrderRsp struct {
+type MyPayDealOrderRsp struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 }

@@ -7,20 +7,20 @@ import (
 )
 
 // 下单
-func (cli *Client) Deposit(req DepositReq) (*DepositRsp, error) {
+func (cli *Client) Deposit(req MyPayDepositReq) (*MyPayDepositRsp, error) {
 
-	rawURL := cli.DepositUrl
+	rawURL := cli.Params.DepositUrl
 
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
-	params["appId"] = cli.MerchantID //uid要参与签名
-	params["apiOrderType"] = 1       //充值
+	params["appId"] = cli.Params.MerchantId
+	params["apiOrderType"] = 1 //充值
 
 	// Generate signature
-	signStr, _ := utils.Sign(params, cli.AccessKey)
+	signStr, _ := utils.Sign(params, cli.Params.AccessKey)
 	params["_sign"] = signStr
 
-	var result DepositRsp
+	var result MyPayDepositRsp
 
 	_, err := cli.ryClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).

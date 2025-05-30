@@ -7,26 +7,26 @@ import (
 )
 
 // outType = 1, deposit ,    =2, withdraw
-func (cli *Client) Check(req CommonCheckReq, outType int) (*CommonCheckRsp, error) {
+func (cli *Client) Check(req MyPayCommonCheckReq, outType int) (*MyPayCommonCheckRsp, error) {
 
 	rawURL := ""
 	if outType == 1 {
 		//deposit
-		rawURL = cli.DepositCheckUrl
+		rawURL = cli.Params.DepositCheckUrl
 	} else if outType == 2 {
 		//withdraw
-		rawURL = cli.WithdrawCheckUrl
+		rawURL = cli.Params.WithdrawCheckUrl
 	}
 
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
-	params["appId"] = cli.MerchantID
+	params["appId"] = cli.Params.MerchantId
 
 	// Generate signature
-	signStr, _ := utils.Sign(params, cli.AccessKey)
+	signStr, _ := utils.Sign(params, cli.Params.AccessKey)
 	params["_sign"] = signStr
 
-	var result CommonCheckRsp
+	var result MyPayCommonCheckRsp
 
 	_, err := cli.ryClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).

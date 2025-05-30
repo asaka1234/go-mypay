@@ -7,19 +7,19 @@ import (
 )
 
 // 下单
-func (cli *Client) DealOrder(req DealOrderReq) (*DealOrderRsp, error) {
+func (cli *Client) DealOrder(req MyPayDealOrderReq) (*MyPayDealOrderRsp, error) {
 
-	rawURL := cli.DealOrderUrl
+	rawURL := cli.Params.DealOrderUrl
 
 	var params map[string]interface{}
 	mapstructure.Decode(req, &params)
-	params["appId"] = cli.MerchantID //uid要参与签名
+	params["appId"] = cli.Params.MerchantId
 
 	// Generate signature
-	signStr, _ := utils.Sign(params, cli.AccessKey)
+	signStr, _ := utils.Sign(params, cli.Params.AccessKey)
 	params["_sign"] = signStr
 
-	var result DealOrderRsp
+	var result MyPayDealOrderRsp
 
 	_, err := cli.ryClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		SetCloseConnection(true).

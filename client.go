@@ -6,30 +6,15 @@ import (
 )
 
 type Client struct {
-	MerchantID int    // merchantId
-	AccessKey  string // accessKey
-	BackKey    string //backKey
-
-	DepositUrl       string
-	DepositCheckUrl  string
-	WithdrawUrl      string
-	WithdrawCheckUrl string
-	DealOrderUrl     string
+	Params MyPayInitParams
 
 	ryClient *resty.Client
 	logger   utils.Logger
 }
 
-func NewClient(logger utils.Logger, merchantID int, accessKey, backKey, depositUrl, depositCheckUrl, withdrawUrl, withdrawCheckUrl, dealOrderUrl string) *Client {
+func NewClient(logger utils.Logger, params MyPayInitParams) *Client {
 	return &Client{
-		MerchantID:       merchantID,
-		AccessKey:        accessKey,
-		BackKey:          backKey,
-		DepositUrl:       depositUrl,
-		DepositCheckUrl:  depositCheckUrl,
-		WithdrawUrl:      withdrawUrl,
-		WithdrawCheckUrl: withdrawCheckUrl,
-		DealOrderUrl:     dealOrderUrl,
+		Params: params,
 
 		ryClient: resty.New(), //client实例
 		logger:   logger,
@@ -37,7 +22,7 @@ func NewClient(logger utils.Logger, merchantID int, accessKey, backKey, depositU
 }
 
 func (cli *Client) SetMerchantInfo(merchantId int, accessKey, backKey string) {
-	cli.MerchantID = merchantId
-	cli.AccessKey = accessKey
-	cli.BackKey = backKey
+	cli.Params.MerchantId = merchantId
+	cli.Params.AccessKey = accessKey
+	cli.Params.BackKey = backKey
 }
