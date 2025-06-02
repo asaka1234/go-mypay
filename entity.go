@@ -1,15 +1,15 @@
 package go_mypay
 
 type MyPayInitParams struct {
-	MerchantId int    `json:"merchantId" mapstructure:"merchantId" config:"merchantId"` // merchantId
-	AccessKey  string `json:"accessKey" mapstructure:"accessKey" config:"accessKey"`    // accessKey
-	BackKey    string `json:"backKey" mapstructure:"backKey" config:"backKey"`          //backKey
+	MerchantId int    `json:"merchantId" mapstructure:"merchantId" config:"merchantId" yaml:"merchantId"` // merchantId
+	AccessKey  string `json:"accessKey" mapstructure:"accessKey" config:"accessKey" yaml:"accessKey"`     // accessKey
+	BackKey    string `json:"backKey" mapstructure:"backKey" config:"backKey" yaml:"backKey"`             //backKey
 
-	DepositUrl       string `json:"depositUrl" mapstructure:"depositUrl" config:"depositUrl"`
-	DepositCheckUrl  string `json:"depositCheckUrl" mapstructure:"depositCheckUrl" config:"depositCheckUrl"`
-	WithdrawUrl      string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl"`
-	WithdrawCheckUrl string `json:"withdrawCheckUrl" mapstructure:"withdrawCheckUrl" config:"withdrawCheckUrl"`
-	DealOrderUrl     string `json:"dealOrderUrl" mapstructure:"dealOrderUrl" config:"dealOrderUrl"`
+	DepositUrl       string `json:"depositUrl" mapstructure:"depositUrl" config:"depositUrl" yaml:"depositUrl"`
+	DepositCheckUrl  string `json:"depositCheckUrl" mapstructure:"depositCheckUrl" config:"depositCheckUrl" yaml:"depositCheckUrl"`
+	WithdrawUrl      string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl" yaml:"withdrawUrl"`
+	WithdrawCheckUrl string `json:"withdrawCheckUrl" mapstructure:"withdrawCheckUrl" config:"withdrawCheckUrl" yaml:"withdrawCheckUrl"`
+	DealOrderUrl     string `json:"dealOrderUrl" mapstructure:"dealOrderUrl" config:"dealOrderUrl" yaml:"dealOrderUrl"`
 }
 
 //----------------------------------
