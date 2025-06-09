@@ -26,6 +26,7 @@ func (cli *Client) DealOrder(req MyPayDealOrderReq) (*MyPayDealOrderRsp, error) 
 		R().
 		SetBody(params).
 		SetHeaders(getHeaders()).
+		SetDebug(cli.debugMode).
 		SetResult(&result).
 		SetError(&result).
 		Post(rawURL)

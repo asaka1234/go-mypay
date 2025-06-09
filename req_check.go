@@ -33,6 +33,7 @@ func (cli *Client) Check(req MyPayCommonCheckReq, outType int) (*MyPayCommonChec
 		R().
 		SetBody(params).
 		SetHeaders(getHeaders()).
+		SetDebug(cli.debugMode).
 		SetResult(&result).
 		SetError(&result).
 		Post(rawURL)

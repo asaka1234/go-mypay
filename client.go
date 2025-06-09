@@ -8,16 +8,18 @@ import (
 type Client struct {
 	Params MyPayInitParams
 
-	ryClient *resty.Client
-	logger   utils.Logger
+	ryClient  *resty.Client
+	debugMode bool
+	logger    utils.Logger
 }
 
 func NewClient(logger utils.Logger, params MyPayInitParams) *Client {
 	return &Client{
 		Params: params,
 
-		ryClient: resty.New(), //client实例
-		logger:   logger,
+		ryClient:  resty.New(), //client实例
+		debugMode: false,
+		logger:    logger,
 	}
 }
 
@@ -25,4 +27,8 @@ func (cli *Client) SetMerchantInfo(merchantId int, accessKey, backKey string) {
 	cli.Params.MerchantId = merchantId
 	cli.Params.AccessKey = accessKey
 	cli.Params.BackKey = backKey
+}
+
+func (cli *Client) SetDebugModel(debugMode bool) {
+	cli.debugMode = debugMode
 }
