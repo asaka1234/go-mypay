@@ -38,7 +38,7 @@ type MyPayDepositRsp struct {
 }
 
 type MyPayDepositResult struct {
-	TradeID       string `json:"tradeId"`
+	TradeID       int    `json:"tradeId"`
 	URL           string `json:"url"`
 	SwiftCode     string `json:"swiftcode"`
 	APIAmountType string `json:"apiAmountType"`
