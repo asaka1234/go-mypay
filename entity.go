@@ -51,7 +51,7 @@ type MyPayDepositBackReq struct {
 	APIUserID   string `json:"apiUserId" mapstructure:"apiUserId"`     //商户用户 Id
 	TradeID     string `json:"tradeId" mapstructure:"tradeId"`         //平台订单唯一识别号 id
 	APIOrderID  string `json:"apiOrderId" mapstructure:"apiOrderId"`   //商户订单唯一识别 Id
-	TradeStatus string `json:"tradeStatus" mapstructure:"tradeStatus"` //订单状态:0：订单创建中；1 待支付；2 已支付(待放行) ；3 成功(流程完成)；4失败
+	TradeStatus int    `json:"tradeStatus" mapstructure:"tradeStatus"` //订单状态:0：订单创建中；1 待支付；2 已支付(待放行) ；3 成功(流程完成)；4失败
 	Amount      string `json:"amount" mapstructure:"amount"`           //支付金额（四舍五入取整）
 	Price       string `json:"price" mapstructure:"price"`             //USDT 价格（1USDT=?RMB）
 	AmountUSDT  string `json:"amountUSDT" mapstructure:"amountUSDT"`   //平台商户账号获取 USDT 的数量
